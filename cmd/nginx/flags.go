@@ -151,6 +151,9 @@ Feature backed by OpenResty Lua libraries.`)
 			`Dynamically update SSL certificates instead of reloading NGINX.
 Feature backed by OpenResty Lua libraries. Requires that OCSP stapling is not enabled`)
 
+		metricRequestTags = flags.StringArray("metric-request-tags", []string{"host", "status", "method", "path", "namespace", "ingress", "service"},
+			"Group request metrics by this tags.")
+
 		httpPort      = flags.Int("http-port", 80, `Port to use for servicing HTTP traffic.`)
 		httpsPort     = flags.Int("https-port", 443, `Port to use for servicing HTTPS traffic.`)
 		statusPort    = flags.Int("status-port", 18080, `Port to use for exposing NGINX status pages.`)
@@ -258,6 +261,7 @@ dynamic certificates functionality is enabled. Please check the flags --enable-s
 		DynamicConfigurationEnabled: *dynamicConfigurationEnabled,
 		DisableLua:                  disableLua,
 		DynamicCertificatesEnabled:  *dynamicCertificatesEnabled,
+		MetricRequestTags:           *metricRequestTags,
 		ListenPorts: &ngx_config.ListenPorts{
 			Default:  *defServerPort,
 			Health:   *healthzPort,

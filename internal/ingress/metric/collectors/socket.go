@@ -77,26 +77,9 @@ type SocketCollector struct {
 	metricMapping map[string]interface{}
 }
 
-var (
-	requestTags = []string{
-		"host",
-
-		"status",
-
-		"method",
-		"path",
-
-		//		"endpoint",
-
-		"namespace",
-		"ingress",
-		"service",
-	}
-)
-
 // NewSocketCollector creates a new SocketCollector instance using
 // the ingresss watch namespace and class used by the controller
-func NewSocketCollector(pod, namespace, class string) (*SocketCollector, error) {
+func NewSocketCollector(pod, namespace, class string, requestTags []string) (*SocketCollector, error) {
 	socket := "/tmp/prometheus-nginx.socket"
 	listener, err := net.Listen("unix", socket)
 	if err != nil {

@@ -123,7 +123,7 @@ func main() {
 	reg.MustRegister(prometheus.NewGoCollector())
 	reg.MustRegister(prometheus.NewProcessCollector(os.Getpid(), ""))
 
-	mc, err := metric.NewCollector(conf.ListenPorts.Status, reg)
+	mc, err := metric.NewCollector(conf.ListenPorts.Status, reg, conf.MetricRequestTags)
 	if err != nil {
 		glog.Fatalf("Error creating prometheus collector:  %v", err)
 	}

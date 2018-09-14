@@ -98,6 +98,8 @@ type Configuration struct {
 	DisableLua bool
 
 	DynamicCertificatesEnabled bool
+
+	MetricRequestTags []string
 }
 
 // GetPublishService returns the Service used to set the load-balancer status of Ingresses.
@@ -548,7 +550,7 @@ func (n *NGINXController) getBackendServers(ingresses []*extensions.Ingress) ([]
 	aUpstreams := make([]*ingress.Backend, 0, len(upstreams))
 
 	for _, upstream := range upstreams {
-		isHTTPSfrom := []*ingress.Server{}
+		var isHTTPSfrom []*ingress.Server
 		for _, server := range servers {
 			for _, location := range server.Locations {
 				if upstream.Name == location.Backend {
